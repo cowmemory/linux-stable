@@ -1,4 +1,60 @@
-        Linux kernel release 3.x <http://kernel.org/>
+This is the Website of COW.
+
+If you have any questions, please send an email to 
+mengqingzhong.gm[dot]gmail[dot]com
+
+We recommend that you use CentOS 7 or 6 to install our version of linux kernel. 
+
+You can get our kernel in the following two ways:
+1. Clone this repository and checkout the 'cow' branch with commands:
+        git clone git@bitbucket.org:jlumqz/linux-stable.git
+        git checkout cow
+
+Then you can compile and install it in the same way 
+as compiling the original kernel.
+
+1. Copy a configure file from your system (note that the file name on 
+       your system may be different with the following):
+       cp /boot/config-3.10.0-123.13.2.el7.x86_64 .config
+2. Configure our kernel with: make menuconfig
+3. Make the kernel: make 
+4. Install the modules of the kernel: sudo make modules_install
+5. Install the kernel: sudo make install
+
+Then reboot with the new kernel and try the following demo.
+
+Download producer.c(http://45.55.6.200/producer.c) 
+and  consumer.c(http://45.55.6.200/consumer.c).
+Compile them:
+gcc producer.c -o producer
+gcc consumer.c -o consumer
+
+Execute producer first.
+input a write command to producer first: w 1
+enable mount: e
+read the content(should output '11'): r
+
+Then, execute consumer.
+input the token of the producer(output from producer): 0
+read the content(should output '11'): r
+
+
+Then input 'w 2' in producer.
+Read the content from producer with 'r'. It should output '22'
+
+Read the content from consumer with 'r'. It should output '11'.
+
+Here is snapshot of the demo:
+http://45.55.6.200/cowdemo.png
+
+
+
+
+The following README is the one from the original kernel.
+
+
+
+Linux kernel release 3.x <http://kernel.org/>
 
 These are the release notes for Linux version 3.  Read them carefully,
 as they tell you what this is all about, explain how to install the
@@ -409,4 +465,3 @@ IF SOMETHING GOES WRONG:
 
    gdb'ing a non-running kernel currently fails because gdb (wrongly)
    disregards the starting offset for which the kernel is compiled.
-
